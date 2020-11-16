@@ -1,8 +1,8 @@
-package 比较排序.插入排序;
+package 比较排序.希尔排序;
 
 import java.util.Random;
 
-public class InsertionSort {
+public class ShellSort {
 
     /**
      * 调用插入排序
@@ -11,15 +11,35 @@ public class InsertionSort {
     public static void sort(int[] nums) {
         int len = nums.length;
 
-        for (int i = 1; i < len; i++) {
+        int step = 1;
+        while (step * 3 + 1 < len) {
+            step = step * 3 + 1;
+        }
+
+        while (step > 0) {
+            InsertionSort(nums, step);
+            step /= 3;
+        }
+    }
+
+    /**
+     * 选定步长的插入排序
+     * @param nums
+     * @param step
+     */
+    private static void InsertionSort(int[] nums, int step) {
+        int len = nums.length;
+
+        for (int i = step; i < len; i++) {
             int temp = nums[i];
 
-            while (i > 0 && temp < nums[i - 1]) {
-                nums[i] = nums[i - 1];
-                i--;
+            int j = i;
+            while (j >= step && temp < nums[j - step]) {
+                nums[j] = nums[j - step];
+                j -= step;
             }
 
-            nums[i] = temp;
+            nums[j] = temp;
         }
     }
 
@@ -52,7 +72,7 @@ public class InsertionSort {
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[50000];
+        int[] nums = new int[50000000];
 
         Random random = new Random();
 
