@@ -1,4 +1,4 @@
-package 比较排序.堆排序.非递归;
+package 比较排序.归并排序.递归;
 
 import java.util.Random;
 
@@ -8,23 +8,33 @@ public class MergeSort {
     private static int[] help = null;
 
     /**
-     * 归并排序
+     * 调用归并排序
      * @param nums
      */
     public static void sort(int[] nums) {
-        int len = nums.length;
 
         //辅助数组扩容初始化
-        help = new int[len];
+        help = new int[nums.length];
 
-        for (int size = 1; size < len; size *= 2) {
-            for (int i = 0; i < len - size; i += size * 2) {
-                int left = i;
-                int mid = left + size - 1;
-                int right = Math.min(left + 2 * size - 1, len - 1);
-                merge(nums, left, mid, right);
-            }
+        sort(nums, 0, nums.length - 1);
+    }
+
+    /**
+     * 归并排序
+     * @param nums
+     * @param left
+     * @param right
+     */
+    private static void sort(int[] nums, int left, int right) {
+        if (left >= right) {
+            return;
         }
+
+        int mid = left + (right - left) / 2;
+        sort(nums, left, mid);
+        sort(nums, mid + 1, right);
+
+        merge(nums, left, mid, right);
     }
 
     /**
