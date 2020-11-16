@@ -14,12 +14,13 @@ public class InsertionSort {
         for (int i = 1; i < len; i++) {
             int temp = nums[i];
 
-            while (i > 0 && temp < nums[i - 1]) {
-                nums[i] = nums[i - 1];
-                i--;
+            int j = i;
+            while (j > 0 && temp < nums[j - 1]) {
+                nums[j] = nums[j - 1];
+                j--;
             }
 
-            nums[i] = temp;
+            nums[j] = temp;
         }
     }
 
