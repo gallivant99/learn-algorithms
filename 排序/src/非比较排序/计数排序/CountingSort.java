@@ -15,20 +15,24 @@ public class CountingSort {
 
         initCountingSort(nums);
 
+        // 给每个元素计数
         for (int i = 0; i < nums.length; i++) {
             int index = nums[i] + base;
             record[index]++;
         }
 
+        // 生成前缀和数组
         for (int i = 1; i < record.length; i++) {
             record[i] += record[i - 1];
         }
 
+        // 将原数组值赋给临时数组
         int[] temp = new int[nums.length];
         for (int i = 0; i < nums.length; i++) {
             temp[i] = nums[i];
         }
 
+        // 从后向前赋值保证稳定性
         for (int i = temp.length - 1; i >= 0; i--) {
             int val = temp[i] + base;
             int index = record[val] - 1;
